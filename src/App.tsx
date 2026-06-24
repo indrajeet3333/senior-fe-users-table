@@ -31,13 +31,15 @@ const USER_IDS = [
   9, 26, 15, 6, 20, 13, 27, 10, 24, 18,
 ];
 
+// DO NOT MODIFY this METHOD. Use it as it is
 // Load a single user. This is the only sanctioned fetch path - use it as-is.
 // IMPORTANT: the returned object does NOT include `id` (the API does not give
 // you back the id you asked for). You must attach the id yourself.
 async function fetchUser(id: number) {
   const res = await fetch(USER_URL(id));
+  if (!res.ok) throw new Error(`Failed to load user ${id} (HTTP ${res.status})`);
   const user = await res.json();
-  delete user.id; // strip the id from the response
+  delete user.id;
   return user;
 }
 
