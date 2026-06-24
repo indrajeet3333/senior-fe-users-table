@@ -41,9 +41,9 @@ function App() {
         </div>
         <div className="sort_and_filter_section">
           <input className="app_section--input" placeholder="Global Search" />
-          <div id="rows_filter">
+          <div id="sort_filter">
             Sort By&nbsp;
-            <select name="rows" id="rows_per_page">
+            <select name="sort_by" id="sort_by">
               {columns.map((column, index) => (
                 <option key={index} value={column.id}>
                   {column.name}
@@ -70,8 +70,8 @@ function App() {
             Rows per page&nbsp;
             <select name="rows" id="rows_per_page">
               <option value="10">10</option>
-              <option value="10">25</option>
-              <option value="10">50</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
             </select>
           </div>
           <div id="page_filter">
