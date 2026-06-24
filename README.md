@@ -19,12 +19,15 @@ Build a **Users table**. The starting point is `src/App.tsx`, which already rend
 static page chrome (a search box, a sort control, the table header, and a pagination
 footer). The same problem statement is repeated as a comment at the top of that file.
 
-1. **Fetch** the list of users from this endpoint using `fetch`:
+1. **Load the users.** Read the constraints carefully:
 
-   ```
-   https://dummyjson.com/users
-   ```
-2. **Render** the users in a table with exactly these columns:
+   - The **bulk users endpoint is off-limits** — do **not** call `https://dummyjson.com/users`.
+   - You may only fetch **one user at a time**, by id: `https://dummyjson.com/users/{id}`.
+   - Load exactly the users in the **`USER_IDS`** array at the top of `src/App.tsx`,
+     as efficiently as you reasonably can.
+   - **Some of those ids are invalid.** The table must still display every user that
+     loads successfully.
+2. **Render** the loaded users in a table with exactly these columns:
 
    | Column id           | Header          |
    | ------------------- | --------------- |
@@ -32,18 +35,16 @@ footer). The same problem statement is repeated as a comment at the top of that 
    | `email`           | Email Address   |
    | `phone`           | Phone Number    |
    | `company_address` | Company Address |
-3. Implement the following, all **in-memory** (client-side — no extra requests once the
-   data is loaded):
+3. Implement **global search**, **sorting**, and **pagination** over the loaded users,
+   all **in-memory** (no extra requests once the data is loaded):
 
-   - **Global search** — a single search input that filters rows across *all* columns
-     shown in the table.
+   - **Global search** — a single input that filters rows across *all* columns shown.
    - **Sorting** — let the user sort the table by a column.
-   - **Pagination** — page through the results, with a selectable page size
-     (the placeholder UI suggests 10 / 25 / 50).
+   - **Pagination** — selectable page size (the placeholder UI suggests 10 / 25 / 50).
 
-That's the whole brief. Part of the exercise is working out how the data maps onto the
-table — take a few minutes to inspect what the endpoint actually returns before you wire
-it up.
+That's the whole brief. Part of the exercise is working out how each user's data maps
+onto the columns — take a few minutes to inspect what a single-user response actually
+returns before you wire it up.
 
 ---
 

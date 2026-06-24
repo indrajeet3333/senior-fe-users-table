@@ -1,16 +1,33 @@
 /*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~Problem Statement~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Call the api endpoint specified by `USERS_URL` using fetch to get a list of users
-  Based on the user details, we want to display the user details in a table with given 
-  `columns` on line 6.
-  We want to implement in-memory filtering, pagination and sorting for this table
-  Global Search - Search on all columns available in the table
+  Build a table of users with the `columns` defined below, plus in-memory
+  global search, sorting, and pagination.
+
+  Loading the data - read carefully:
+    - The bulk users endpoint is OFF-LIMITS. Do NOT call
+      https://dummyjson.com/users.
+    - You may only fetch ONE user at a time, by id, via `USER_URL(id)`
+      (e.g. https://dummyjson.com/users/1).
+    - Load exactly the users listed in `USER_IDS`, as efficiently as you
+      reasonably can.
+    - Some ids in `USER_IDS` are invalid - the table must still display every
+      user that loads successfully.
+
+  Global Search - search across all columns shown in the table.
 */
 
 import React from "react";
 import "./App.css";
 
-const USERS_URL = "https://dummyjson.com/users";
+// Fetch a SINGLE user by id. (The bulk /users endpoint is off-limits.)
+const USER_URL = (id: number) => `https://dummyjson.com/users/${id}`;
+
+// Load exactly these users. Heads up: some of these ids are invalid.
+const USER_IDS = [
+  3, 7, 12, 9999, 1, 19, 25, 4, 250, 14,
+  22, 8, 30, 11, 999, 5, 17, 28, 2, 23,
+  9, 26, 15, 6, 20, 13, 27, 10, 24, 18,
+];
 
 const columns = [
   {
