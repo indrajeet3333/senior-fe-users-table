@@ -22,15 +22,18 @@ footer). The same problem statement is repeated as a comment at the top of that 
 1. **Load the users.** Read the constraints carefully:
 
    - The **bulk users endpoint is off-limits** — do **not** call `https://dummyjson.com/users`.
-   - You may only fetch **one user at a time**, by id: `https://dummyjson.com/users/{id}`.
-   - Load exactly the users in the **`USER_IDS`** array at the top of `src/App.tsx`,
-     as efficiently as you reasonably can.
+   - Load each user with the provided **`fetchUser(id)`** helper (the only fetch path),
+     for exactly the ids in **`USER_IDS`** at the top of `src/App.tsx`, as efficiently
+     as you reasonably can.
+   - **`fetchUser` does not return the user's `id`.** You still have to show it in the
+     first column — so track which id you requested and attach it yourself.
    - **Some of those ids are invalid.** The table must still display every user that
      loads successfully.
 2. **Render** the loaded users in a table with exactly these columns:
 
    | Column id           | Header          |
    | ------------------- | --------------- |
+   | `id`              | ID              |
    | `name`            | Full Name       |
    | `email`           | Email Address   |
    | `phone`           | Phone Number    |

@@ -6,10 +6,12 @@
   Loading the data - read carefully:
     - The bulk users endpoint is OFF-LIMITS. Do NOT call
       https://dummyjson.com/users.
-    - You may only fetch ONE user at a time, by id, via `USER_URL(id)`
-      (e.g. https://dummyjson.com/users/1).
-    - Load exactly the users listed in `USER_IDS`, as efficiently as you
+    - Load each user with the provided `fetchUser(id)` helper - it is the only
+      fetch path. Load exactly the ids in `USER_IDS`, as efficiently as you
       reasonably can.
+    - IMPORTANT: `fetchUser` does NOT return the user's `id`. You still have to
+      show the id in the first column - so track which id you requested and
+      attach it yourself.
     - Some ids in `USER_IDS` are invalid - the table must still display every
       user that loads successfully.
 
@@ -19,7 +21,7 @@
 import React from "react";
 import "./App.css";
 
-// Fetch a SINGLE user by id. (The bulk /users endpoint is off-limits.)
+// Builds the URL for a single user. (The bulk /users endpoint is off-limits.)
 const USER_URL = (id: number) => `https://dummyjson.com/users/${id}`;
 
 // Load exactly these users. Heads up: some of these ids are invalid.
@@ -29,7 +31,21 @@ const USER_IDS = [
   9, 26, 15, 6, 20, 13, 27, 10, 24, 18,
 ];
 
+// Load a single user. This is the only sanctioned fetch path - use it as-is.
+// IMPORTANT: the returned object does NOT include `id` (the API does not give
+// you back the id you asked for). You must attach the id yourself.
+async function fetchUser(id: number) {
+  const res = await fetch(USER_URL(id));
+  const user = await res.json();
+  delete user.id; // strip the id from the response
+  return user;
+}
+
 const columns = [
+  {
+    id: "id",
+    name: "ID",
+  },
   {
     id: "name",
     name: "Full Name",
